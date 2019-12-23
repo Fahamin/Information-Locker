@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "987356470961",
+    "firebase_url": "https://lockerinfo-d79cd.firebaseio.com",
+    "project_id": "lockerinfo-d79cd",
+    "storage_bucket": "lockerinfo-d79cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987356470961:android:73155c6ced013f56200c90",
+        "android_client_info": {
+          "package_name": "lock.file.lockerinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987356470961-e81rebmnjaoi8ln73aql5ttqr6q8i6ge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "lock.file.lockerinfo",
+            "certificate_hash": "404dfc9c536d0bde05d8d02a356948f8693b04aa"
+          }
+        },
+        {
+          "client_id": "987356470961-bsuir81relg4b6vkpct7bsufoojkgq6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA70nu4o-uVrQlM5YUT1ZtItAGMh9dQmhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987356470961-bsuir81relg4b6vkpct7bsufoojkgq6o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="lock.file.lockerinfo.activit.MainActivity">
+
+    <item
+        android:id="@+id/serchID"
+        android:icon="@drawable/ic_search"
+        android:title="serchView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>
