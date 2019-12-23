@@ -11,18 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activit.PasswordReset"></activity>
-        <activity android:name=".activit.Registration" />
-        <activity android:name=".activit.Login" >
+        <activity android:name=".activity.PasswordReset"></activity>
+        <activity android:name=".activity.Registration" />
+        <activity android:name=".activity.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activit.DataADD" />
+        <activity android:name=".activity.DataADD" />
         <activity
-            android:name=".activit.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 

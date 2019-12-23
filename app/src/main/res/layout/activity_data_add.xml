@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/root_view"
-    tools:context=".activit.DataADD">
+    tools:context=".activity.DataADD">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

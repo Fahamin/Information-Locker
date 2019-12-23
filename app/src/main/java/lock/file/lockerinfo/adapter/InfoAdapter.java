@@ -1,4 +1,4 @@
-package lock.file.lockerinfo;
+package lock.file.lockerinfo.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import lock.file.lockerinfo.R;
 import lock.file.lockerinfo.model.DataModel;
 
 public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.MyViewHolder> implements Filterable {

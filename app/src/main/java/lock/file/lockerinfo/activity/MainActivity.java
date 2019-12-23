@@ -1,10 +1,9 @@
-package lock.file.lockerinfo.activit;
+package lock.file.lockerinfo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +29,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import lock.file.lockerinfo.model.DataModel;
-import lock.file.lockerinfo.InfoAdapter;
+import lock.file.lockerinfo.adapter.InfoAdapter;
 import lock.file.lockerinfo.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,12 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 infoList.clear();
                 Iterable<DataSnapshot> allSingleItem = dataSnapshot.getChildren();
 
-                for(DataSnapshot datarecive : allSingleItem)
-                {
+                for (DataSnapshot datarecive : allSingleItem) {
                     DataModel dataModel = datarecive.getValue(DataModel.class);
                     infoList.add(dataModel);
                 }
-
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                adapter = new InfoAdapter(MainActivity.this, infoList, recyclerView);
+                recyclerView.setAdapter(adapter);
 
             }
 
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //
+
         if (infoList.size() > 0) {
 
             prepareForView();
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               startActivity(new Intent(MainActivity.this,DataADD.class));
+                startActivity(new Intent(MainActivity.this, DataADD.class));
             }
         });
     }
@@ -107,12 +109,7 @@ public class MainActivity extends AppCompatActivity {
         messageTV.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        adapter = new InfoAdapter(this, infoList, recyclerView);
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -133,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                if (adapter != null){
+                if (adapter != null) {
                     adapter.getFilter().filter(newText);
                 }
 

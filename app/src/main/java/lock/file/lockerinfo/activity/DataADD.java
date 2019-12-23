@@ -1,4 +1,4 @@
-package lock.file.lockerinfo.activit;
+package lock.file.lockerinfo.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -53,8 +53,9 @@ public class DataADD extends AppCompatActivity {
         }
         user = FirebaseAuth.getInstance().getCurrentUser();
         key_id = user.getUid();
-        key = databaseReference.push().getKey();
         databaseReference = FirebaseDatabase.getInstance().getReference("user").child(key_id);
+
+        key = databaseReference.push().getKey();
 
 
         init();

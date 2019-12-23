@@ -1,4 +1,4 @@
-package lock.file.lockerinfo.activit;
+package lock.file.lockerinfo.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
