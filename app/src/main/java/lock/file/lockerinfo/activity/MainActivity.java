@@ -1,6 +1,8 @@
 package lock.file.lockerinfo.activity;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseReference databaseReference;
     FirebaseUser user;
-    String key_id, key;
+    String key_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         infoList = new ArrayList<>();
 
-        messageTV = findViewById(R.id.messageTV);
         recyclerView = findViewById(R.id.recycleViewID);
+
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         key_id = user.getUid();
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 infoList.clear();
                 Iterable<DataSnapshot> allSingleItem = dataSnapshot.getChildren();
 
@@ -70,11 +74,11 @@ public class MainActivity extends AppCompatActivity {
                     DataModel dataModel = datarecive.getValue(DataModel.class);
                     infoList.add(dataModel);
                 }
+
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                 adapter = new InfoAdapter(MainActivity.this, infoList, recyclerView);
                 recyclerView.setAdapter(adapter);
-
             }
 
             @Override
@@ -84,17 +88,17 @@ public class MainActivity extends AppCompatActivity {
         });
         //
 
-        if (infoList.size() > 0) {
+      /*  if (infoList.size() > 0) {
 
             prepareForView();
 
 
         } else {
 
-            recyclerView.setVisibility(View.GONE);
-            messageTV.setVisibility(View.VISIBLE);
+          // recyclerView.setVisibility(View.GONE);
+            //messageTV.setVisibility(View.VISIBLE);
 
-        }
+        }*/
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -105,12 +109,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void prepareForView() {
-        messageTV.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
 
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

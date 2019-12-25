@@ -1,15 +1,15 @@
-package lock.file.lockerinfo.activity;
+package lock.file.lockerinfo.dialog;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
+import android.app.Dialog;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,14 +21,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import lock.file.lockerinfo.R;
+import lock.file.lockerinfo.activity.DataADD;
 import lock.file.lockerinfo.model.DataModel;
 
-public class DataADD extends AppCompatActivity {
+public class EditDialogView {
 
     DatabaseReference databaseReference;
     FirebaseUser user;
@@ -40,36 +42,35 @@ public class DataADD extends AppCompatActivity {
     ImageView imageView;
     Button saveBTN;
     private View rootView;
+    AppCompatActivity activity;
+     Dialog dialog;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_data_add);
 
-        ActionBar actionBar = getSupportActionBar();
 
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(true);
-        }
-        //ofline
-      //  FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+    public void showDialog(final AppCompatActivity activity, String tt, String dd,String key_child) {
+         dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        dialog.setContentView(R.layout.update_layout);
         user = FirebaseAuth.getInstance().getCurrentUser();
         key_id = user.getUid();
         databaseReference = FirebaseDatabase.getInstance().getReference("user").child(key_id);
-     //   databaseReference.keepSynced(true);
-        key = databaseReference.push().getKey();
 
+        key = key_child;
 
         init();
 
-
+        titleET.setText(tt);
+        descriptionET.setText(dd);
+        dialog.show();
     }
 
     private void init() {
-        titleET = findViewById(R.id.title_ET);
-        descriptionET = findViewById(R.id.description_ET);
-        saveBTN = findViewById(R.id.save_BTN);
-        rootView = findViewById(R.id.root_view);
+
+        titleET = dialog.findViewById(R.id.title_ET);
+        descriptionET = dialog.findViewById(R.id.description_ET);
+        saveBTN = dialog.findViewById(R.id.save_BTN);
+        rootView = dialog.findViewById(R.id.root_view);
 
         saveBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,19 +101,25 @@ public class DataADD extends AppCompatActivity {
                     times = sdf12.format(time);
 
 
-                    DataModel dataModel = new DataModel(key, title, description, date, times);
+
+                    DataModel dataModel = new DataModel(key,title,description,date,times);
                     databaseReference.child(key).setValue(dataModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(DataADD.this, "Data Save", Toast.LENGTH_SHORT).show();
-                                finish();
+                            if(task.isSuccessful())
+                            {
+                             //   Toast.makeText(activity, "Data Save", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
                             }
                         }
                     });
                 }
             }
         });
+    }
+
+    private void LoadData() {
+
     }
 
     private boolean checkValidity() {

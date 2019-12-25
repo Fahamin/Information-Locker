@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -49,6 +51,10 @@ public class Login extends AppCompatActivity {
             actionBar.hide();
         }
 
+        if(!checkInternet())
+        {
+            Toast.makeText(this, "Please Connect Internet", Toast.LENGTH_LONG).show();
+        }
        // Toast.makeText(this, "please check internet connection", Toast.LENGTH_LONG).show();
 
 
@@ -62,6 +68,17 @@ public class Login extends AppCompatActivity {
         mProgress.setIndeterminate(true);
 
     }
+    public boolean checkInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+
+        if (info != null && info.isConnected()) {
+            return true;
+        } else {
+            return false;
+
+        }
+    }
     private void intvarible() {
 
         auth = FirebaseAuth.getInstance();
@@ -74,7 +91,7 @@ public class Login extends AppCompatActivity {
             // hello = "";
            /* startActivity(new Intent(this, MainActivity.class));
             finish();*/
-            Toast.makeText(this, "Registration First", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Registration First For Security ", Toast.LENGTH_SHORT).show();
         }
 
         inputEmail.setText(hello);

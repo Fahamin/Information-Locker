@@ -17,6 +17,11 @@
         android:layout_marginRight="5dp"
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
+        android:elevation="8dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="8dp"
+        app:contentPadding="5dp"
+        app:cardMaxElevation="8dp"
         android:focusable="true"
         android:padding="5dp">
 
@@ -71,7 +76,7 @@
                             android:layout_gravity="center"
                             android:padding="5dp"
                             android:tint="#484848"
-                            app:srcCompat="@drawable/ic_date_range_black_24dp"
+                            app:srcCompat="@drawable/ic_add"
                             tools:ignore="VectorDrawableCompat" />
 
                         <TextView
@@ -152,7 +157,7 @@
                         android:layout_gravity="center"
                         android:padding="5dp"
                         android:tint="#484848"
-                        app:srcCompat="@drawable/ic_add"
+                        app:srcCompat="@drawable/ic_date_range_black_24dp"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -217,7 +222,7 @@
                         android:padding="5dp"
                         android:tint="#484848"
 
-                        app:srcCompat="@drawable/ic_close_black_24dp"
+                        app:srcCompat="@drawable/ic_delete_forever_black_24dp"
                         tools:ignore="VectorDrawableCompat" />
 
                     <TextView
@@ -231,7 +236,37 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/share_LAYOUT"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:padding="5dp"
+                        android:tint="#484848"
+
+                        app:srcCompat="@drawable/ic_share_black_24dp"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="Share"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

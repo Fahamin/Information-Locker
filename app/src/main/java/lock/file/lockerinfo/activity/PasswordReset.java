@@ -54,29 +54,41 @@ public class PasswordReset extends AppCompatActivity {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = inputEmail.getText().toString().trim();
-                if (TextUtils.isEmpty(email)) {
-                    inputEmail.setError("Enter your Email");
-                    inputEmail.requestFocus();
 
-                }
+
                 progressBar.setVisibility(View.VISIBLE);
 
-                auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(PasswordReset.this, "Send Email", Toast.LENGTH_SHORT).show();
+                if(check())
+                {
+                    String email = inputEmail.getText().toString().trim();
+                    auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(PasswordReset.this, "Send Email", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(PasswordReset.this, "Faield to send", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(PasswordReset.this, "Faield to send", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
                 progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    public boolean check()
+    {
+        if (inputEmail.getText().toString().isEmpty()) {
+            inputEmail.setError("Enter your Email");
+            inputEmail.requestFocus();
+            return false;
+        }
+        else
+            return true;
     }
 }
