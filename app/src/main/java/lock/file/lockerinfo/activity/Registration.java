@@ -39,7 +39,11 @@ public class Registration extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
 
-
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null)
+        {
+            actionBar.hide();
+        }
 
         auth = FirebaseAuth.getInstance();
 

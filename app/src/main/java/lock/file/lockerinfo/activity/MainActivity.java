@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<DataModel> infoList;
     RecyclerView recyclerView;
     InfoAdapter adapter;
-    private TextView messageTV;
 
     DatabaseReference databaseReference;
     FirebaseUser user;
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     
-    @Override
+   /* @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
@@ -167,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
-    }
+    }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -188,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
                         .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
+                                System.exit(1);
                                 finish();
                             }
                         })
