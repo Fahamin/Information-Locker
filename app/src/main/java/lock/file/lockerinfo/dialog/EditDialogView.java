@@ -39,16 +39,14 @@ public class EditDialogView {
     EditText titleET, descriptionET;
     String title, description, times, date;
     Calendar calendar;
-    ImageView imageView;
     Button saveBTN;
     private View rootView;
-    AppCompatActivity activity;
-     Dialog dialog;
+    Dialog dialog;
 
 
 
     public void showDialog(final AppCompatActivity activity, String tt, String dd,String key_child) {
-         dialog = new Dialog(activity);
+        dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         dialog.setContentView(R.layout.update_layout);

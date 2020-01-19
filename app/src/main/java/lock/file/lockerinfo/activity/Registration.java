@@ -103,7 +103,7 @@ public class Registration extends AppCompatActivity {
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     mProgress.dismiss();
-                                    Intent i = new Intent(Registration.this, Login.class);
+                                    Intent i = new Intent(Registration.this, MainActivity.class);
                                     i.putExtra("emailS",email);
                                     startActivity(i);
                                     finish();

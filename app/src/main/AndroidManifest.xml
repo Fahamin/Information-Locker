@@ -11,8 +11,13 @@
         android:roundIcon="@mipmap/iconli_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PasswordReset"></activity>
+        <activity android:name=".activity.PasswordReset"
+            android:parentActivityName=".activity.MainActivity">
+
+        </activity>
+
         <activity android:name=".activity.Registration" />
+
         <activity android:name=".activity.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -37,7 +37,6 @@ public class DataADD extends AppCompatActivity {
     EditText titleET, descriptionET;
     String title, description, times, date;
     Calendar calendar;
-    ImageView imageView;
     Button saveBTN;
     private View rootView;
 

@@ -5,7 +5,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -37,6 +39,7 @@ public class Login extends AppCompatActivity {
     TextView btnReset;
     String email, hello = "";
     FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,18 +51,17 @@ public class Login extends AppCompatActivity {
 
 
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null)
-        {
+        if (actionBar != null) {
             actionBar.hide();
         }
-        if(!checkInternet())
-        {
+        if (!checkInternet()) {
             Toast.makeText(this, "Please Connect Internet", Toast.LENGTH_LONG).show();
         }
-       // Toast.makeText(this, "please check internet connection", Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, "please check internet connection", Toast.LENGTH_LONG).show();
 
 
         initView();
+
 
         intvarible();
 
@@ -70,6 +72,7 @@ public class Login extends AppCompatActivity {
         mProgress.setIndeterminate(true);
 
     }
+
     public boolean checkInternet() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
@@ -81,15 +84,25 @@ public class Login extends AppCompatActivity {
 
         }
     }
-    private void intvarible() {
 
+    private void intvarible() {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
 
-        if (user != null) {
-            hello = hello.concat("").concat(user.getEmail());
-        } else
+        SharedPreferences preferences = getSharedPreferences("pass", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        boolean ss = preferences.getBoolean("p", false);
+
+        if(ss)
         {
+            startActivity(new Intent(Login.this, MainActivity.class));
+        }
+
+        if (user != null) {
+            //startActivity(new Intent(Login.this, MainActivity.class));
+            hello = hello.concat("").concat(user.getEmail());
+        } else {
             // hello = "";
            /* startActivity(new Intent(this, MainActivity.class));
             finish();*/
@@ -153,7 +166,7 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     mProgress.dismiss();
                                     startActivity(new Intent(Login.this, MainActivity.class));
-
+                                    finish();
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {

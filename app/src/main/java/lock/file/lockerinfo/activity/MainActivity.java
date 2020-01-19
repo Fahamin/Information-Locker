@@ -26,6 +26,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Handler;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import lock.file.lockerinfo.dialog.SettingDialog;
 import lock.file.lockerinfo.model.DataModel;
 import lock.file.lockerinfo.adapter.InfoAdapter;
 import lock.file.lockerinfo.R;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user;
     String key_id;
     private boolean doubleBackToExitPressedOnce = false;
+    SwipeRefreshLayout refreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +63,15 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
 
+
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
+
+        refreshLayout = findViewById(R.id.swipRefreshID);
+        refreshLayout.setColorScheme(android.R.color.holo_blue_light);
+
 
         infoList = new ArrayList<>();
 
@@ -87,10 +95,17 @@ public class MainActivity extends AppCompatActivity {
                     infoList.add(dataModel);
                 }
 
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
-                adapter = new InfoAdapter(MainActivity.this, infoList, recyclerView);
-                recyclerView.setAdapter(adapter);
+
+                if (infoList.size() > 0) {
+
+                    prepareForView();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "No record found Tap '+' to add new record!", Toast.LENGTH_SHORT).show();
+
+
+                }
+
             }
 
             @Override
@@ -98,19 +113,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        //
-
-      /*  if (infoList.size() > 0) {
-
-            prepareForView();
 
 
-        } else {
-
-          // recyclerView.setVisibility(View.GONE);
-            //messageTV.setVisibility(View.VISIBLE);
-
-        }*/
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.setRefreshing(true);
+                dataLoadFromFirebase();
+                adapter = new InfoAdapter(MainActivity.this, infoList, recyclerView);
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                refreshLayout.setRefreshing(false);
+            }
+        });
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +136,44 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void dataLoadFromFirebase() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                infoList.clear();
+                Iterable<DataSnapshot> allSingleItem = dataSnapshot.getChildren();
+
+                for (DataSnapshot datarecive : allSingleItem) {
+                    DataModel dataModel = datarecive.getValue(DataModel.class);
+                    infoList.add(dataModel);
+                }
+
+
+                if (infoList.size() > 0) {
+
+                    prepareForView();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "No record found Tap '+' to add new record!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void prepareForView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        adapter = new InfoAdapter(MainActivity.this, infoList, recyclerView);
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
 
     @Override
@@ -148,32 +201,31 @@ public class MainActivity extends AppCompatActivity {
         });
         return true;
     }
-    
-   /* @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
 
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again for exit", Toast.LENGTH_SHORT).show();
+    /* @Override
+     public void onBackPressed() {
+         if (doubleBackToExitPressedOnce) {
+             super.onBackPressed();
+             return;
+         }
 
-        new Handler().postDelayed(new Runnable() {
+         this.doubleBackToExitPressedOnce = true;
+         Toast.makeText(this, "Please click BACK again for exit", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
-    }*/
+         new Handler().postDelayed(new Runnable() {
+
+             @Override
+             public void run() {
+                 doubleBackToExitPressedOnce = false;
+             }
+         }, 2000);
+     }*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
 
                 AlertDialog.Builder builder;
@@ -197,6 +249,14 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .show();
+
+                break;
+            case R.id.action_settings:
+
+                SettingDialog dialog = new SettingDialog();
+                dialog.showSettingDialog(this);
+
+                break;
         }
 
         //noinspection SimplifiableIfStatement

@@ -18,45 +18,45 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import lock.file.lockerinfo.R;
 
 public class PasswordReset extends AppCompatActivity {
     EditText inputEmail;
-    Button btnReset, btnBack;
+    Button btnBack;
     ProgressBar progressBar;
     FirebaseAuth auth;
+    FirebaseUser user;
+    String hello = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_password_reset);
-
         ActionBar actionBar = getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.hide();
+           actionBar.setHomeButtonEnabled(true);
+           actionBar.setDisplayShowHomeEnabled(true);
         }
 
         inputEmail = (EditText) findViewById(R.id.email);
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
         btnBack = (Button) findViewById(R.id.btn_back);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         auth = FirebaseAuth.getInstance();
 
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+
+        if (user != null) {
+            hello = hello.concat("").concat(user.getEmail());
+        }
+
+        inputEmail.setText(hello);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
