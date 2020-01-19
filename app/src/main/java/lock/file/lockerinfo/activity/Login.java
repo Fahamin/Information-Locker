@@ -94,14 +94,15 @@ public class Login extends AppCompatActivity {
 
         boolean ss = preferences.getBoolean("p", false);
 
-        if(ss)
-        {
+        if (ss) {
             startActivity(new Intent(Login.this, MainActivity.class));
         }
 
         if (user != null) {
             //startActivity(new Intent(Login.this, MainActivity.class));
             hello = hello.concat("").concat(user.getEmail());
+            inputEmail.setText(hello);
+            inputEmail.setVisibility(View.GONE);
         } else {
             // hello = "";
            /* startActivity(new Intent(this, MainActivity.class));
@@ -109,7 +110,6 @@ public class Login extends AppCompatActivity {
             Toast.makeText(this, "Registration First For Security ", Toast.LENGTH_SHORT).show();
         }
 
-        inputEmail.setText(hello);
 
     }
 

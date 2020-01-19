@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:onClick="RegisterBTN"
-                android:text="No account yet? Create Account "
+                android:text="No account yet? Registration "
                 android:textSize="17dp" />
 
         </LinearLayout>

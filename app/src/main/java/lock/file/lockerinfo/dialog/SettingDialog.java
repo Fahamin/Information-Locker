@@ -31,7 +31,7 @@ public class SettingDialog {
         checkBox = dialog.findViewById(R.id.passwordCheckID);
         Button saveBtn = dialog.findViewById(R.id.saveBtnDialogID);
 
-        Boolean ss = preferences.getBoolean("p", false);
+        boolean ss = preferences.getBoolean("p", false);
 
 
         if (ss) {
