@@ -119,6 +119,10 @@ public class Login extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnReset = findViewById(R.id.btn_reset_password);
 
+       /* Glide.with(this *//* context *//*)
+                .using(new FirebaseImageLoader())
+                .load(storageReference)
+                .into(imageView);*/
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
