@@ -8,8 +8,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -18,15 +20,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import lock.file.lockerinfo.R;
 
@@ -39,6 +48,8 @@ public class Login extends AppCompatActivity {
     TextView btnReset;
     String email, hello = "";
     FirebaseUser user;
+    private static final String TAG = "FirebaseImageLoader";
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,17 +110,46 @@ public class Login extends AppCompatActivity {
         }
 
         if (user != null) {
+
+            String key_id = user.getUid();
+
+            final StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(key_id);
+            String link = storageRef.getDownloadUrl().toString();
+
+            Glide.with(Login.this)
+                    .load(link)
+                    .into(imageView);
+
+           /* final long ONE_MEGABYTE = 130 * 130;
+
+            storageRef.getBytes(ONE_MEGABYTE)
+            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    Glide.with(Login.this)
+                            .load(storageRef)
+                            .into(imageView);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+
+                }
+            });*/
+
+
             //startActivity(new Intent(Login.this, MainActivity.class));
             hello = hello.concat("").concat(user.getEmail());
             inputEmail.setText(hello);
             inputEmail.setVisibility(View.GONE);
         } else {
             // hello = "";
-           /* startActivity(new Intent(this, MainActivity.class));
-            finish();*/
+           // startActivity(new Intent(this, MainActivity.class));
+          //  finish();
             Toast.makeText(this, "Registration First For Security ", Toast.LENGTH_SHORT).show();
-        }
 
+
+        }
 
     }
 
@@ -118,11 +158,8 @@ public class Login extends AppCompatActivity {
         inputPassword = (EditText) findViewById(R.id.inputPassEtdId);
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnReset = findViewById(R.id.btn_reset_password);
+        imageView = findViewById(R.id.user_profile_photo);
 
-       /* Glide.with(this *//* context *//*)
-                .using(new FirebaseImageLoader())
-                .load(storageReference)
-                .into(imageView);*/
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override

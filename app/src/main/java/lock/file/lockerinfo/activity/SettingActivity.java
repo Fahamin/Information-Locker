@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,11 +49,20 @@ String key_id;
         upBtn = findViewById(R.id.btnUpload);
         imageView = findViewById(R.id.imgView);
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
 
+        storageReference = FirebaseStorage.getInstance().getReference().child(key_id);
         user = FirebaseAuth.getInstance().getCurrentUser();
         key_id = user.getUid();
+        final StorageReference storageRef = FirebaseStorage.getInstance().getReference().child(key_id);
+        String link = storageRef.getDownloadUrl().toString();
+
+       /* if(link != null)
+        {
+            Glide.with(this)
+                    .load(link)
+                    .into(imageView);
+        }*/
+
 
         seletBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +85,9 @@ String key_id;
                     = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            StorageReference ref = storageReference.child(key_id);
 
-            ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+            storageReference.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
