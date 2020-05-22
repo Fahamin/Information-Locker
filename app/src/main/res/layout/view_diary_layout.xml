@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="2dp">
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/fullChildCV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginRight="5dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:elevation="8dp"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="8dp"
-        app:contentPadding="5dp"
-        app:cardMaxElevation="8dp"
-        android:focusable="true"
-        android:padding="5dp">
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
 
 
         <LinearLayout
@@ -46,6 +37,7 @@
                     android:maxLines="1"
                     android:paddingLeft="8dp"
                     android:text="Title"
+                    android:textColor="#000"
                     android:textSize="20sp" />
 
                 <TextView
@@ -54,8 +46,10 @@
                     android:layout_height="wrap_content"
                     android:maxLines="1"
                     android:paddingLeft="8dp"
+
                     android:paddingTop="5dp"
                     android:text="Description"
+                    android:textColor="#000"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -87,6 +81,8 @@
                             android:maxLines="1"
                             android:padding="5dp"
                             android:text="Date"
+
+                            android:textColor="#000"
                             android:textSize="12sp" />
 
 
@@ -115,6 +111,8 @@
                             android:maxLines="1"
                             android:padding="5dp"
                             android:text="time"
+
+                            android:textColor="#000"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -167,6 +165,8 @@
                         android:layout_marginLeft="5dp"
                         android:paddingLeft="5dp"
                         android:text="Details"
+                        android:textColor="#000"
+
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -199,6 +199,8 @@
                         android:layout_marginLeft="5dp"
                         android:paddingLeft="5dp"
                         android:text="Edit"
+                        android:textColor="#000"
+
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -232,6 +234,8 @@
                         android:layout_marginLeft="5dp"
                         android:paddingLeft="5dp"
                         android:text="Delete"
+                        android:textColor="#000"
+
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -263,6 +267,8 @@
                         android:layout_marginLeft="5dp"
                         android:paddingLeft="5dp"
                         android:text="Share"
+                        android:textColor="#000"
+
                         android:textSize="14sp" />
 
                 </LinearLayout>

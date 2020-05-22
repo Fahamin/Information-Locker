@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center_horizontal"
         android:text="Account Login"
         android:textColor="#fff"
@@ -49,6 +49,8 @@
                     android:layout_height="wrap_content"
                     android:drawableTint="#FF4081"
                     android:hint="User Email"
+                    android:textColor="#000"
+                    android:layout_marginTop="20dp"
                     android:inputType="textEmailAddress"
                     android:singleLine="true" />
 
@@ -56,12 +58,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputPassEtdId"
                     android:layout_width="match_parent"
+
+                    android:textColor="#000"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:drawableTint="#FF4081"
@@ -76,6 +82,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:paddingTop="5dp"
+                android:textColor="#000"
+
                 android:text="Forgot Password?" />
 
 
@@ -84,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="22dp"
-                android:text="Sign in"
+                android:text="Login"
                 android:background="@drawable/round"
                 android:textAllCaps="false"
                 android:textColor="#fff"
@@ -94,8 +102,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:textColor="#000"
+
                 android:onClick="RegisterBTN"
-                android:text="No account yet? Registration "
+                android:text="Don't have account? Create "
                 android:textSize="17dp" />
 
         </LinearLayout>
@@ -107,7 +117,7 @@
         android:layout_height="130dp"
         android:layout_below="@+id/login_title"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/user_profile_image_background"
         android:elevation="4dp"
         android:src="@drawable/login2" />
