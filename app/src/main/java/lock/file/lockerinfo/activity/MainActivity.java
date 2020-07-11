@@ -252,11 +252,8 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case R.id.action_settings:
-
-                startActivity(new Intent(this,SettingActivity.class));
-
-              /*  SettingDialog dialog = new SettingDialog();
-                dialog.showSettingDialog(this);*/
+                SettingDialog dialog = new SettingDialog();
+                dialog.showSettingDialog(this);
 
                 break;
         }

@@ -1,38 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:layout_margin="5dp">
+        android:layout_margin="5dp"
+        android:padding="5dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <EditText
+                android:id="@+id/title_ET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:layout_margin="5dp"
+                android:background="@drawable/edit_text_design"
+                android:hint="Title"
+                android:maxLines="1"
+                android:padding="8dp" />
 
-                <EditText
-                    android:id="@+id/title_ET"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="@drawable/edit_text_design"
-                    android:hint="Title"
-                    android:maxLines="1"
-                    android:padding="8dp"
-                    />
-            </LinearLayout>
 
             <EditText
                 android:id="@+id/description_ET"
@@ -41,11 +33,11 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/edit_text_design"
                 android:gravity="top"
+                android:layout_below="@id/title_ET"
                 android:hint="Description"
-                android:padding="8dp"
-                />
+                android:padding="8dp" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 
